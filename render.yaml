@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: pronet-simulacion
+    runtime: static
+    buildCommand: echo "Usando compilación estática incluida en el repositorio"
+    staticPublishPath: ./artifacts/pronet-testing-simulation/dist/public
+    autoDeploy: true

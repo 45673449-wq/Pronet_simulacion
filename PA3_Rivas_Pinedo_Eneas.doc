@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>PA3_Rivas_Pinedo_Eneas</title>
+  <style>
+    @page { size: A4; margin: 2.2cm; }
+    body { font-family: Arial, sans-serif; color: #20252b; line-height: 1.45; font-size: 11pt; }
+    h1 { color: #073d3d; font-size: 22pt; text-align: center; margin: 0 0 6pt; }
+    h2 { color: #073d3d; border-bottom: 2px solid #e5a735; padding-bottom: 4pt; margin-top: 22pt; }
+    h3 { color: #145b5b; margin-top: 16pt; }
+    h4 { color: #26363b; margin-bottom: 3pt; }
+    .cover { text-align: center; padding-top: 80pt; page-break-after: always; }
+    .brand { font-size: 28pt; font-weight: bold; color: #073d3d; letter-spacing: 1pt; margin: 45pt 0; }
+    .brand span { color: #e37b25; }
+    .meta { margin: 30pt auto; width: 80%; border: 1px solid #cfd7d7; padding: 16pt; text-align: left; }
+    .note { background: #eef6f5; border-left: 4px solid #0b6661; padding: 9pt 12pt; }
+    .case { border: 1px solid #d7dfdf; padding: 9pt 12pt; margin: 9pt 0; page-break-inside: avoid; }
+    .case strong { color: #073d3d; }
+    table { width: 100%; border-collapse: collapse; margin: 9pt 0 14pt; page-break-inside: avoid; }
+    th { background: #073d3d; color: white; text-align: left; }
+    th, td { border: 1px solid #b9c7c7; padding: 7pt; vertical-align: top; }
+    tr:nth-child(even) td { background: #f5f8f8; }
+    ul, ol { margin-top: 5pt; }
+    li { margin-bottom: 5pt; }
+    .small { font-size: 9pt; color: #58666a; }
+  </style>
+</head>
+<body>
+  <section class="cover">
+    <div class="brand">Pr<span>o</span>net <span style="font-size:16pt;color:#073d3d">system</span></div>
+    <h1>SIMULACIÓN DE CÓDIGO</h1>
+    <h2 style="border:0;text-align:center">Plan de pruebas para el acceso seguro al sistema operativo</h2>
+    <div class="meta">
+      <p><strong>Actividad:</strong> PA3 — Pruebas de software</p>
+      <p><strong>Estudiante:</strong> Rivas Pinedo Eneas</p>
+      <p><strong>Casística:</strong> Pantalla de inicio de sesión de Pronet System</p>
+      <p><strong>Archivo:</strong> PA3_Rivas_Pinedo_Eneas.doc</p>
+    </div>
+    <p class="small">Documento elaborado para acompañar la simulación web de acceso seguro.</p>
+  </section>
+
+  <h2>1. Pruebas funcionales</h2>
+  <p>
+    Las pruebas funcionales comprueban que el sistema haga lo que fue definido en sus
+    requisitos. En esta casuística se valida el acceso al espacio operativo de Pronet:
+    el usuario ingresa un correo corporativo y una contraseña, el sistema valida los
+    datos, muestra un mensaje entendible y permite entrar únicamente cuando las
+    credenciales son válidas.
+  </p>
+  <p>
+    El proceso se ejecuta desde la pantalla de inicio, continúa con la validación del
+    formulario y termina con una de dos salidas: acceso al panel protegido o rechazo
+    controlado. Cada caso debe registrar datos de entrada, resultado esperado, resultado
+    obtenido, evidencia y estado.
+  </p>
+
+  <h3>Casos funcionales propuestos</h3>
+  <table>
+    <tr><th>ID</th><th>Prueba / datos</th><th>Resultado esperado y argumento</th></tr>
+    <tr>
+      <td>F-01</td>
+      <td>Correo corporativo y contraseña válidos. Datos de demostración definidos por la casuística.</td>
+      <td>El sistema permite el acceso, muestra el espacio operativo y conserva el contexto de sesión. Verifica la función principal del producto.</td>
+    </tr>
+    <tr>
+      <td>F-02</td>
+      <td>Correo vacío y contraseña vacía.</td>
+      <td>El botón no debe completar el acceso. Se muestran indicaciones de campos obligatorios. Comprueba validación requerida del formulario.</td>
+    </tr>
+    <tr>
+      <td>F-03</td>
+      <td>Correo con formato incorrecto, por ejemplo “usuario@”.</td>
+      <td>Se rechaza el valor antes de intentar autenticar. Se informa que el correo no tiene un formato válido. Evita solicitudes inválidas.</td>
+    </tr>
+    <tr>
+      <td>F-04</td>
+      <td>Correo válido con contraseña incorrecta.</td>
+      <td>Se deniega el acceso y se muestra un mensaje general de credenciales incorrectas sin revelar cuál dato falló. Verifica el rechazo de autenticación.</td>
+    </tr>
+    <tr>
+      <td>F-05</td>
+      <td>Correo con mayúsculas, espacios al inicio o al final.</td>
+      <td>El sistema normaliza los espacios y trata el correo de forma consistente, o informa claramente el formato inválido. Comprueba reglas de normalización.</td>
+    </tr>
+    <tr>
+      <td>F-06</td>
+      <td>Activar y desactivar “mostrar contraseña”.</td>
+      <td>El tipo visual del campo cambia entre texto oculto y visible sin modificar el valor. Comprueba una función auxiliar de usabilidad.</td>
+    </tr>
+    <tr>
+      <td>F-07</td>
+      <td>Enviar con la tecla Enter desde cualquiera de los campos.</td>
+      <td>El formulario se procesa una sola vez, igual que al presionar el botón. Comprueba el flujo normal de teclado.</td>
+    </tr>
+    <tr>
+      <td>F-08</td>
+      <td>Presionar varias veces el botón de ingreso.</td>
+      <td>La interfaz evita envíos duplicados mientras procesa la solicitud y conserva un único resultado. Comprueba control del estado de carga.</td>
+    </tr>
+    <tr>
+      <td>F-09</td>
+      <td>Cerrar sesión desde el panel protegido.</td>
+      <td>La sesión se elimina y el usuario vuelve a la pantalla de acceso. Al volver atrás, no debe visualizar el contenido protegido.</td>
+    </tr>
+    <tr>
+      <td>F-10</td>
+      <td>Recargar la página después de iniciar sesión.</td>
+      <td>El sistema aplica la regla definida para la sesión: mantenerla si existe persistencia o solicitar nuevamente acceso si es una simulación temporal. El comportamiento debe ser consistente.</td>
+    </tr>
+  </table>
+
+  <h2>2. Pruebas no funcionales</h2>
+  <p>
+    Las pruebas no funcionales evalúan cómo funciona el sistema, no solo qué respuesta
+    entrega. Para Pronet son importantes porque el acceso contiene información operativa
+    y debe transmitir seguridad, responder rápido y permanecer usable en distintos
+    dispositivos.
+  </p>
+
+  <h3>Tipos y aplicación a la casuística</h3>
+  <table>
+    <tr><th>Tipo</th><th>Aplicación</th><th>Resultado esperado / argumento</th></tr>
+    <tr>
+      <td>Rendimiento</td>
+      <td>Medir el tiempo de carga inicial, el tiempo de respuesta del ingreso y el comportamiento con múltiples accesos simultáneos.</td>
+      <td>La vista debe cargar rápidamente y el acceso debe responder sin bloqueos. Un tiempo excesivo afecta la operación y la percepción de confiabilidad.</td>
+    </tr>
+    <tr>
+      <td>Usabilidad y accesibilidad</td>
+      <td>Revisar textos de ayuda, contraste, foco visible, navegación solo con teclado, etiquetas asociadas a los campos y lectura con tecnologías de asistencia.</td>
+      <td>Una persona debe identificar qué dato ingresar y corregir un error sin depender únicamente del color. El sistema debe ser operable por personas con distintas capacidades.</td>
+    </tr>
+    <tr>
+      <td>Compatibilidad</td>
+      <td>Ejecutar la pantalla en Chrome, Edge, Firefox y Safari; en escritorio, tablet y móvil.</td>
+      <td>El formulario, el logo y el panel dividido deben conservar legibilidad, sin desbordamientos ni pérdida de controles.</td>
+    </tr>
+    <tr>
+      <td>Confiabilidad</td>
+      <td>Repetir el acceso y el cierre de sesión, simular respuestas lentas y revisar recuperación después de un error.</td>
+      <td>El sistema debe terminar en un estado conocido, sin quedar bloqueado ni mostrar una pantalla incompleta.</td>
+    </tr>
+    <tr>
+      <td>Mantenibilidad</td>
+      <td>Revisar que la validación esté separada de la presentación y que los mensajes, estilos y casos puedan modificarse sin romper el flujo.</td>
+      <td>La estructura facilita cambios, pruebas unitarias y regresiones. Reduce el costo de agregar nuevas reglas.</td>
+    </tr>
+  </table>
+
+  <h3>Pruebas de seguridad</h3>
+  <ol>
+    <li><strong>Protección de credenciales:</strong> verificar que la contraseña nunca aparezca en texto plano en la interfaz, URL, consola o mensajes de error.</li>
+    <li><strong>Control de acceso:</strong> intentar abrir directamente la ruta del panel sin autenticarse y comprobar que se redirige al acceso.</li>
+    <li><strong>Prevención de inyección:</strong> enviar caracteres especiales y cadenas de prueba en correo y contraseña. El sistema debe tratar la entrada como dato, no como código.</li>
+    <li><strong>Protección contra XSS:</strong> ingresar HTML o JavaScript como texto y confirmar que se muestra escapado o se rechaza, nunca se ejecuta.</li>
+    <li><strong>Mensajes seguros:</strong> validar que el error no distinga entre “correo inexistente” y “contraseña incorrecta”, evitando enumeración de usuarios.</li>
+    <li><strong>Sesión:</strong> comprobar expiración, cierre de sesión, no reutilización del contenido protegido con el botón Atrás y uso de cookies seguras cuando corresponda.</li>
+    <li><strong>Transporte:</strong> verificar que el acceso se realice mediante HTTPS en el entorno publicado y que no se envíen datos sensibles por HTTP.</li>
+    <li><strong>Fuerza bruta:</strong> probar muchos intentos fallidos y confirmar límites, espera progresiva o bloqueo temporal según la política definida.</li>
+    <li><strong>Cabeceras:</strong> revisar Content-Security-Policy, X-Content-Type-Options, Referrer-Policy y protección contra clickjacking.</li>
+  </ol>
+  <div class="note"><strong>Nota:</strong> en la simulación web el acceso es demostrativo. No se deben ingresar contraseñas reales ni usar este prototipo como sistema de producción.</div>
+
+  <h2>3. Flujo de pruebas de regresión</h2>
+  <p>
+    La regresión es el conjunto de verificaciones que se repite después de un cambio para
+    asegurar que las funciones que ya trabajaban no se hayan dañado. En la casuística,
+    cualquier modificación al formulario, mensajes, estilos responsivos, validación o
+    lógica de sesión puede afectar el acceso completo.
+  </p>
+
+  <h3>Flujo propuesto</h3>
+  <ol>
+    <li><strong>Identificar el cambio:</strong> registrar qué se modificó, por ejemplo una nueva regla de contraseña, un cambio de estilos o un ajuste de sesión.</li>
+    <li><strong>Analizar impacto:</strong> relacionar el cambio con los casos F-01 a F-10 y con las pruebas de seguridad, compatibilidad y accesibilidad afectadas.</li>
+    <li><strong>Preparar ambiente:</strong> usar una versión controlada, datos de prueba conocidos y navegadores/dispositivos definidos.</li>
+    <li><strong>Ejecutar pruebas de humo:</strong> abrir la pantalla, cargar recursos, ingresar con datos válidos y salir. Si falla el humo, no continuar con la batería completa.</li>
+    <li><strong>Ejecutar regresión funcional:</strong> repetir validaciones de campos vacíos, formato, credenciales incorrectas, mostrar contraseña, Enter, doble clic, acceso y cierre de sesión.</li>
+    <li><strong>Ejecutar regresión no funcional:</strong> verificar que no haya pérdida de contraste, desbordamiento móvil, aumento importante del tiempo de respuesta o exposición de información.</li>
+    <li><strong>Comparar resultados:</strong> contrastar evidencia actual con la línea base anterior y clasificar cada caso como aprobado, fallido o bloqueado.</li>
+    <li><strong>Gestionar defectos:</strong> documentar pasos para reproducir, entrada usada, resultado esperado, resultado real, evidencia y severidad.</li>
+    <li><strong>Repetir después de corregir:</strong> ejecutar la prueba fallida y luego el conjunto de regresión relacionado para verificar que la solución no produzca un efecto colateral.</li>
+    <li><strong>Cerrar ciclo:</strong> emitir un informe con cobertura, defectos abiertos, riesgos aceptados y aprobación de la versión.</li>
+  </ol>
+
+  <h3>Ejemplo relacionado con la casuística</h3>
+  <p>
+    Si se cambia la regla para aceptar únicamente correos corporativos “@pronetsystem.com”,
+    la regresión mínima debe incluir el correo válido, un correo de otro dominio, un correo
+    incompleto, espacios, mayúsculas, credenciales incorrectas, envío con Enter y el
+    comportamiento en móvil. También debe revisarse que el mensaje no revele información
+    de la cuenta y que el usuario pueda corregir el valor con teclado.
+  </p>
+
+  <h2>4. Herramientas de automatización</h2>
+
+  <h3>4.1 Pruebas funcionales</h3>
+  <div class="case">
+    <h4>Selenium WebDriver</h4>
+    <p><strong>Empresa u organización que la patrocina:</strong> Selenium Project / Selenium Software Foundation.</p>
+    <p><strong>Descripción:</strong> conjunto de herramientas de código abierto que automatiza navegadores reales mediante WebDriver. Permite trabajar con varios lenguajes y navegadores.</p>
+    <p><strong>Pruebas que ejecuta:</strong> pruebas funcionales de extremo a extremo, navegación, formularios, compatibilidad y regresión.</p>
+    <p><strong>Aplicación a la casuística:</strong> abrir la portada de Pronet, completar correo y contraseña, presionar “Ingresar al sistema”, verificar la vista protegida y cerrar sesión. Se parametrizan casos válidos, campos vacíos y contraseña incorrecta para ejecutarlos en Chrome, Firefox y Edge.</p>
+  </div>
+  <div class="case">
+    <h4>Cypress</h4>
+    <p><strong>Empresa u organización que la patrocina:</strong> Cypress.io.</p>
+    <p><strong>Descripción:</strong> plataforma de pruebas para aplicaciones web con ejecución dentro del navegador, esperas automáticas, trazas de comandos y capturas útiles para depuración.</p>
+    <p><strong>Pruebas que ejecuta:</strong> pruebas end-to-end, de componentes, validaciones de formularios y regresión funcional.</p>
+    <p><strong>Aplicación a la casuística:</strong> crear una suite “Acceso seguro” que visite la pantalla, verifique textos visibles, pruebe mensajes de validación, alterne la visibilidad de contraseña, confirme el acceso con datos de demo y valide el cierre de sesión. Cypress puede tomar una captura cuando un caso falla.</p>
+  </div>
+
+  <h3>4.2 Pruebas no funcionales</h3>
+  <div class="case">
+    <h4>Apache JMeter</h4>
+    <p><strong>Empresa u organización que la patrocina:</strong> Apache Software Foundation.</p>
+    <p><strong>Descripción:</strong> herramienta de código abierto para crear escenarios de carga, estrés, rendimiento y concurrencia sobre servicios web.</p>
+    <p><strong>Pruebas que ejecuta:</strong> carga, volumen, estrés, resistencia y medición de tiempos de respuesta.</p>
+    <p><strong>Aplicación a la casuística:</strong> configurar un grupo de usuarios virtuales que solicite los recursos de la portada y envíe intentos controlados al flujo de autenticación. Se observan promedio, percentiles, errores y comportamiento cuando crece la concurrencia, sin usar contraseñas reales.</p>
+  </div>
+  <div class="case">
+    <h4>OWASP ZAP</h4>
+    <p><strong>Empresa u organización que la patrocina:</strong> OWASP Foundation.</p>
+    <p><strong>Descripción:</strong> proxy de análisis de seguridad para encontrar vulnerabilidades en aplicaciones web durante pruebas autorizadas.</p>
+    <p><strong>Pruebas que ejecuta:</strong> análisis pasivo y activo, revisión de cabeceras, cookies, XSS, inyección, rutas expuestas y configuraciones inseguras.</p>
+    <p><strong>Aplicación a la casuística:</strong> ejecutar ZAP contra un ambiente de prueba de Pronet, revisar que no se expongan credenciales, confirmar cabeceras de seguridad, probar entradas especiales en el formulario y verificar que el panel no sea accesible sin sesión. El escaneo activo se realiza únicamente con autorización.</p>
+  </div>
+
+  <h3>4.3 Pruebas unitarias</h3>
+  <div class="case">
+    <h4>Jest</h4>
+    <p><strong>Empresa u organización que la patrocina:</strong> Meta (Facebook).</p>
+    <p><strong>Descripción:</strong> framework de pruebas de JavaScript con aserciones, mocks, cobertura y ejecución rápida para funciones aisladas.</p>
+    <p><strong>Pruebas que ejecuta:</strong> pruebas unitarias de validadores, normalizadores, reglas de sesión y funciones de presentación de mensajes.</p>
+    <p><strong>Aplicación a la casuística:</strong> probar una función que valida el correo corporativo, otra que verifica que la contraseña no esté vacía, la normalización de espacios y la transformación del estado de visibilidad. Cada unidad se prueba con datos válidos, inválidos y casos límite, sin abrir un navegador.</p>
+  </div>
+
+  <h2>Conclusión</h2>
+  <p>
+    La combinación propuesta cubre la función principal de Pronet y los riesgos que pueden
+    afectar un acceso operativo: datos inválidos, errores de sesión, incompatibilidad,
+    lentitud, accesibilidad y exposición de información. Selenium y Cypress validan el
+    recorrido que realiza una persona; JMeter mide el comportamiento bajo carga; OWASP ZAP
+    ayuda a encontrar debilidades de seguridad; y Jest comprueba las reglas internas con
+    rapidez. El flujo de regresión mantiene estas comprobaciones después de cada cambio y
+    permite entregar una versión con evidencia trazable.
+  </p>
+</body>
+</html>
